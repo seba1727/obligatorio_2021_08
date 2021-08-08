@@ -35,3 +35,7 @@
 
 - name: Create Application DB User
   mysql_user: name={{ dbuser }} password={{ upassword }} priv=*.*:ALL host='%' state=present
+
+-handlers:
+- name: restart mariadb
+  service: name=mariadb state=restarted
