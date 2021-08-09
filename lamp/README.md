@@ -13,16 +13,16 @@ RHEL7 version reflects changes in Red Hat Enterprise Linux and CentOS 7:
 3. MySQL is replaced with MariaDB
 
 This LAMP stack can be on a single node or multiple nodes. The inventory file
-'hosts' defines the nodes in which the stacks should be configured.
+hosts/inventario.ini defines the nodes in which the stacks should be configured.
 
-        [webservers]
-        localhost
+        [centosrhel]
+        192.168.0.110
 
-        [dbservers]
-        bensible
+        [ubuntudebian]
+        192.168.0.111
 
 Here the webserver would be configured on the local host and the dbserver on a
-server called `bensible`. The stack can be deployed using the following
+server called `ubuntutaller`. The stack can be deployed using the following
 command:
 
         ansible-playbook -i hosts site.yml

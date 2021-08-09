@@ -1,21 +1,21 @@
 ---
 # This playbook deploys the whole application stack in this site.
 
-- name: apply common configuration to all nodes
-  hosts: centosweb
+- name: apply ntp configuration to all nodes
+  hosts: centosrhel
   remote_user: ansible
 
   Playbooks:
     - ntp
 
 - name: configure and deploy the webservers and application code
-  hosts: centosweb
+  hosts: centosrhel
   remote_user: ansible
   Playbooks:
     - web
 
 - name: deploy MySQL and configure the databases
-  hosts: ubuntudb
+  hosts: ubuntudebian
   remote_user: ansible
 
   Playbooks:

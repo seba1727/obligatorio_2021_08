@@ -1,0 +1,3 @@
+---
+- include: ConfigurationWeb.yml
+- include: copy_code.yml
