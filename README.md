@@ -1,8 +1,8 @@
-# Obligatorio 2021 - 08 Roles Stack LAMP
+# Obligatorio 2021 Taller Linux Roles Stack LAMP
 -------------------------------------------
 # Modificaiones realizadas
 
- Creacion de un archivo "ansible.cfg" con las siguientes directivas
+Creacion de un archivo "ansible.cfg" con las siguientes directivas
 [defaults]
 inventory = hosts/inventario.ini
 deprecation_warnings = False
@@ -18,7 +18,7 @@ En donde "dbservers" son hosts que distribuciones SO CentOS y donde "webservers"
 [webservers]
 192.168.0.111
 
- Roles - common
+Roles - common
 
  El rol "common" se crearon dos playbooks llamados "deploy-on-centos" y "deploy-on-ubuntu" para dezplegar las configuraciones a las dos distribuciones ya configuradas.
 
@@ -35,7 +35,7 @@ En donde "dbservers" son hosts que distribuciones SO CentOS y donde "webservers"
         - ufw
         - git
 
- En ambos casos se configuro una tarea para copiar el archivo de configuracion a ambas distribuciones .La carpeta "templates" fue movida a la carpeta de "tasks" y el archivo "ntp.conf.j2" fue renombrado a "chrony.conf.j2" y configurado de la siguiente manera:
+En ambos casos se configuro una tarea para copiar el archivo de configuracion a ambas distribuciones .La carpeta "templates" fue movida a la carpeta de "tasks" y el archivo "ntp.conf.j2" fue renombrado a "chrony.conf.j2" y configurado de la siguiente manera:
 keyfile /etc/chrony/chrony.keys
 
 
@@ -47,14 +47,13 @@ maxupdateskew 100.0
 
 makestep 1 3
 
- En centos al final del playbook se agrego un handler con una tarea a cumplir: handlers:
+En centos al final del playbook se agrego un handler con una tarea a cumplir: handlers:
             - name: restart chronyd
               service: 
                       name: chronyd
                       state: restarted
 
-
- En el archivo "main.yml" se configuro para que ambas distribuciones se desplieguen.
+En el archivo "main.yml" se configuro para que ambas distribuciones se desplieguen.
   - name: Deploy on dbservers
     import_playbook: deploy-on-centos.yml
     
@@ -94,7 +93,7 @@ handlers:
 
  ·Roles - WEB
 
- EN el rol web para la instalacion de apache se configuro desde cero para adaptarlo para la distribucion "Ubuntu". Ademas de la tarea de installar httpd, tambien se agregaron dependencias.
+EN el rol web para la instalacion de apache se configuro desde cero para adaptarlo para la distribucion "Ubuntu". Ademas de la tarea de installar httpd, tambien se agregaron dependencias.
 
 apt: 
       name: '{{ item }}'
@@ -107,27 +106,27 @@ apt:
         - libapache2-mod-security2
         - libapache2-mod-php
 
- Se agrego una configuracion para "ufw" con un puerto.
+Se agrego una configuracion para "ufw" con un puerto.
 - name: Allow all access to tcp port 80
   community.general.ufw:
       rule: allow
       port: '80'
       proto: tcp   
 
- Y agregamos un par de tareas para asegurarse que el servicio corra correctamente:
+Y agregamos un par de tareas para asegurarse que el servicio corra correctamente:
 
-- name: Apache2 start
+name: Apache2 start
   ansible.builtin.systemd:
       name: apache2
       state: started
       enabled: yes
 
-- name: Make sure apache2 is running
+ name: Make sure apache2 is running
   ansible.builtin.systemd:
       state: started
       name: apache2
 
- Tanto el playbook "copy-code.yml como "install_httpd.yml" van a ser corridos con el playbook "main.yml" con la siguiente configuracion.
+Tanto el playbook "copy-code.yml como "install_httpd.yml" van a ser corridos con el playbook "main.yml" con la siguiente configuracion.
   
 - include: install_httpd.yml
 - include: copy_code.yml  
