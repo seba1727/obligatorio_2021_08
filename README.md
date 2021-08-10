@@ -3,7 +3,8 @@
 ## Modificaiones realizadas
 
 1.Creacion de un archivo "ansible.cfg" con las siguientes directivas
-[defaults]
+
+-[defaults]
 inventory = hosts/inventario.ini
 deprecation_warnings = False
 remote_user = ansible
