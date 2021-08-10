@@ -1,15 +1,15 @@
 # Obligatorio 2021 Taller Linux Roles Stack LAMP
 -------------------------------------------
-# Modificaiones realizadas
+## Modificaiones realizadas
 
-Creacion de un archivo "ansible.cfg" con las siguientes directivas
+--Creacion de un archivo "ansible.cfg" con las siguientes directivas
 [defaults]
 inventory = hosts/inventario.ini
 deprecation_warnings = False
 remote_user = ansible
 become_method = sudo
 
- Creacion de una carptea llamada "hosts". Dentro de ella se creo una archivo llamado ".ini" con la configuracion de los host.
+--Creacion de una carptea llamada "hosts". Dentro de ella se creo una archivo llamado ".ini" con la configuracion de los host.
 
 En donde "dbservers" son hosts que distribuciones SO CentOS y donde "webservers" son hosts que distribuciones SO Ubuntu
 [dbservers]
@@ -24,13 +24,14 @@ Roles - common
 
  En ambos se configuro para que se instale el servicio "chrony" asi como sus configuraciones respectivas para "firewalld" y "ufw".
            
-           CentOS                              
- - chrony
+CentOS                              
+ 
+      - chrony
       - python3-libselinux             
       - python3-libsemanage
       - git
       
-            Ubuntu 
+Ubuntu 
         
         - chrony
         - ufw
