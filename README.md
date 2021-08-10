@@ -23,6 +23,7 @@ Roles - common
  El rol "common" se crearon dos playbooks llamados "deploy-on-centos" y "deploy-on-ubuntu" para dezplegar las configuraciones a las dos distribuciones ya configuradas.
 
  En ambos se configuro para que se instale el servicio "chrony" asi como sus configuraciones respectivas para "firewalld" y "ufw".
+           
            CentOS                              
  - chrony
       - python3-libselinux             
@@ -131,8 +132,8 @@ Tanto el playbook "copy-code.yml como "install_httpd.yml" van a ser corridos con
 - include: install_httpd.yml
 - include: copy_code.yml  
 
- Todo el stack de roles va a ser corrido por el playbook "site.yml"
-  Se modifico la los hosts a los que cada playbook va a ir destinado.
+Todo el stack de roles va a ser corrido por el playbook "site.yml"
+Se modifico los hosts a los que cada playbook va a ir destinado.
 
 
 
