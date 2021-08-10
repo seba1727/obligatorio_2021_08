@@ -4,22 +4,20 @@
 
 1.Creacion de un archivo "ansible.cfg" con las siguientes directivas
 
-[defaults]
-
-inventory = hosts/inventario.ini
-deprecation_warnings = False
-remote_user = ansible
-become_method = sudo
+-[defaults]
+ inventory = hosts/inventario.ini
+ deprecation_warnings = False
+ remote_user = ansible
+ become_method = sudo
 
 2.Creacion de una carptea llamada "hosts". Dentro de ella se creo una archivo llamado ".ini" con la configuracion de los host.
 
 En donde "dbservers" son "hosts" que distribuciones SO CentOS y donde "webservers" son hosts que distribuciones SO Ubuntu:
 
-[dbservers]
-192.168.0.110
-
-[webservers]
-192.168.0.111
+-[dbservers]
+ 192.168.0.110
+-[webservers]
+ 192.168.0.111
 
 ## Roles - common
 
@@ -72,7 +70,7 @@ El archivo "main.yml" se cambio de nombre a "install_db.yml" y en su totalidad f
 La carpeta "templates" y le archivo de variables "dbservers" paso a estar dentro de la carpeta "tasks"
 
 Se modifico la tarea de "install MariadDb package" en su sintaxis y paquetes a instalar.
-   yum: 
+- yum: 
       name: "{{ item }}" 
       state: present
     loop:
@@ -92,7 +90,7 @@ Se modifico la tarea de "install MariadDb package" en su sintaxis y paquetes a i
 
  Y al final del archivo se agreo un handlers
 
-handlers:
+- handlers:
   - name: restart mariadb
     service: name=mariadb state=restarted 
 
@@ -100,7 +98,7 @@ handlers:
 
 EN el rol web para la instalacion de apache se configuro desde cero para adaptarlo para la distribucion "Ubuntu". Ademas de la tarea de installar httpd, tambien se agregaron dependencias.
 
-apt: 
+- apt: 
       name: '{{ item }}'
       state: present
   loop:
@@ -120,13 +118,13 @@ Se agrego una configuracion para "ufw" con un puerto.
 
 Y agregamos un par de tareas para asegurarse que el servicio corra correctamente:
 
-name: Apache2 start
+- name: Apache2 start
   ansible.builtin.systemd:
       name: apache2
       state: started
       enabled: yes
 
- name: Make sure apache2 is running
+- name: Make sure apache2 is running
   ansible.builtin.systemd:
       state: started
       name: apache2
