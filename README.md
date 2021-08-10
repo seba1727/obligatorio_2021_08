@@ -12,7 +12,7 @@
 
 2.Creacion de una carptea llamada "hosts". Dentro de ella se creo una archivo llamado ".ini" con la configuracion de los host.
 
-En donde "dbservers" son "hosts" que distribuciones SO CentOS y donde "webservers" son hosts que distribuciones SO Ubuntu:
+En donde "dbservers" son "hosts" que distribuciones SO CentOS y donde "webservers" son hosts que distribuciones SO Ubuntu.
 
 -[dbservers]
  192.168.0.110
