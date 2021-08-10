@@ -63,7 +63,7 @@ En el archivo "main.yml" se configuro para que ambas distribuciones se despliegu
     import_playbook: deploy-on-ubuntu.yml
 
  Roles - DB
-El archivo "main.yml" se cambio de nombre a "install_db.yml"
+El archivo "main.yml" se cambio de nombre a "install_db.yml" y en su totalidad fue modificado para que quede mas prolijo. Las tareas que se modificaron fueron las mismas solo que quedaron en un orden distinto y a continuacion se nombraran las tareas que si fueron agregadas.
 
 La carpeta "templates" y le archivo de variables "dbservers" paso a estar dentro de la carpeta "tasks"
 

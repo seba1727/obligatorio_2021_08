@@ -18,16 +18,29 @@
       state: present
         
   - name: Configure SELinux to start mysql on any port
-    seboolean: name=mysql_connect_any state=true persistent=yes
+    seboolean: 
+          name: mysql_connect_any 
+          state: true 
+          persistent: yes
       
   - name: Create Mysql configuration file
     template: src=my.cnf.j2 dest=/etc/my.cnf
     
   - name: Create MariaDB log file
-    file: path=/var/log/mysqld.log state=touch owner=mysql group=mysql mode=0775
+    file: 
+        path: /var/log/mysqld.log 
+        state: touch 
+        owner: mysql 
+        group: mysql 
+        mode: 0775
 
   - name: Create MariaDB PID directory
-    file: path=/var/run/mysqld state=directory owner=mysql group=mysql mode=0775
+    file: 
+      path: /var/run/mysqld 
+      state: directory 
+      owner: mysql 
+      group: mysql 
+      mode: 0775
 
   - name: Start MariaDB Service
     service: 
@@ -42,18 +55,31 @@
           enabled: yes
 
   - name: insert firewalld rule
-    firewalld: port={{ mysql_port }}/tcp permanent=true state=enabled immediate=yes
+    firewalld: 
+            port: 3306/tcp 
+            permanent: true 
+            state: enabled 
+            immediate: yes
     
   - name: Firewall reload
     shell: firewall-cmd --reload
     notify: restart mariadb
     
-  - name: Create Application Database
-    mysql_db: name={{ dbname }} state=present
+  - name: Try to create database as root/nopassword first. If not allowed, pass the credentials
+    community.mysql.mysql_db:
+       check_implicit_admin: yes
+       login_user: ansible
+       login_password: redhat
+       name: bobdata
+       state: present
 
-  -  name: Create Application DB User
-     mysql_user: name={{ dbuser }} password={{ upassword }} priv=*.*:ALL host='%' state=present
-      
+  - name: Create database user with name 'prueba' and password 'obligatorio' with all database privileges
+    mysql_user:
+     name: prueba
+     password: 12345
+     priv: '*.*:ALL'
+     state: present
+
   handlers:
   - name: restart mariadb
     service: name=mariadb state=restarted
