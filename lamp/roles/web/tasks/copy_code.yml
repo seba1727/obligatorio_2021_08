@@ -3,12 +3,11 @@
 # the version control system.
 
 - name: Copy the code from repository
-  ansible.builtin.git: 
-    repo: "{{ repository }}"
-    dest: /var/www/html/
-
-- name: Configurar archivo index.php
-  ansible.builtin.template:
-    src: index.php.j2 
+  with_items:
+        "{{ repository }}"
+  dest: /var/www/html
+  
+- name: Creates the index.php file
+  template:
+    src: index.php.j2
     dest: /var/www/html/index.php
-

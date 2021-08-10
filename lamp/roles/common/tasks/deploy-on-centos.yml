@@ -1,9 +1,8 @@
 ---
 # This playbook contains common plays that will be run on all nodes.
 
-- hosts: CentOS
+- hosts: dbservers
   become: yes
-  gather_facts: True
   tasks:
   - name: Install Chrony and dependencies
     yum: 

@@ -1,7 +1,7 @@
 ---
 # These tasks install http and the php modules.
 
-- hosts: Ubuntu
+- hosts: webservers
   tasks:
   - name: Install httpd and other tools
     apt: 

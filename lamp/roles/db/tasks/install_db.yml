@@ -1,10 +1,8 @@
 ---
 # This playbook will install MariaDB and create db user and give permissions.
 
-- hosts: CentOS
+- hosts: dbservers
   become: yes
-  vars_files: 
-   dbservers
   tasks:
   - name: Install MariaDB package
     yum: 

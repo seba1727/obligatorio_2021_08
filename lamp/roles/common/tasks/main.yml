@@ -1,0 +1,8 @@
+---
+- nclude_tasks: deploy_in_centos.yml
+  when: ansible_distribution=='CentOS'
+
+ 
+-  include_tasks: deploy_in_ubuntu.yml
+   when: ansible_distribution=='Ubuntu'
+    
