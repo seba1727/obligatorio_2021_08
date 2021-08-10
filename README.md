@@ -15,9 +15,9 @@
 En donde "dbservers" son "hosts" que distribuciones SO CentOS y donde "webservers" son hosts que distribuciones SO Ubuntu.
 
 -[dbservers]
- 192.168.0.110
+-192.168.0.110
 -[webservers]
- 192.168.0.111
+-192.168.0.111
 
 ## Roles - common
 
