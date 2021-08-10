@@ -1,0 +1,8 @@
+---
+  - name: Deploy on CentOS
+    import_playbook: deploy-on-centos.yml
+    
+
+  - name: Despliegue en Ubuntu
+    import_playbook: deploy-on-ubuntu.yml
+    

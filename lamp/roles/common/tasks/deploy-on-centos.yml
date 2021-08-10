@@ -1,0 +1,41 @@
+---
+# This playbook contains common plays that will be run on all nodes.
+
+- hosts: CentOS
+  become: yes
+  gather_facts: True
+  tasks:
+  - name: Install Chrony and dependencies
+    yum: 
+      name: "{{ item }}"
+      state: present
+    loop:
+      - chrony
+      - python3-libselinux
+      - python3-libsemanage
+      - git
+      
+  - name: Allow ntp through firewall
+    shell: firewall-cmd --add-service=ntp --permanent
+   
+  - name: Firewall reload
+    shell: firewall-cmd --reload
+    notify: restart chronyd
+    
+  - name: Configure chrony file
+    template:
+      src: chrony.conf.j2
+      dest: /etc/chrony.conf
+    tags: chrony
+    
+  - name: Start the chrony service 
+    service: name=chronyd state=started enabled=yes
+    tags: chronyd
+
+  handlers:
+            - name: restart chronyd
+              service: 
+                      name: chronyd
+                      state: restarted
+  
+

@@ -1,22 +1,5 @@
----
-# This playbook deploys the whole application stack in this site.
+- name: dbservers
+  import_playbook: deploy-on-centos.yml
 
-- name: apply ntp configuration to all nodes
-  hosts: centosrhel
-  remote_user: ansible
-
-  Playbooks:
-    - ntp
-
-- name: configure and deploy the webservers and application code
-  hosts: centosrhel
-  remote_user: ansible
-  Playbooks:
-    - web
-
-- name: deploy MySQL and configure the databases
-  hosts: ubuntudebian
-  remote_user: ansible
-
-  Playbooks:
-    - database
+- name: webservers 
+  import_playbook: deploy-on-ubuntu.yml

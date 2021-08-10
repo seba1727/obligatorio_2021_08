@@ -1,0 +1,33 @@
+---
+
+- hosts: Ubuntu
+  become: yes
+  tasks:
+  - name: Install Chrony and Dependencies
+    apt: 
+      name: '{{ item }}'
+      state: present
+    loop:
+        - chrony
+        - ufw
+        - git
+  
+  - name: Update repositories cache
+    apt: update_cache=yes
+  
+  - name: Install build-essential
+    apt: name=build-essential state=present
+
+  - name: Configure chrony file
+    template:
+      src: chrony.conf.j2
+      dest: /etc/chrony.conf
+    tags: chrony
+    notify: restart chrony
+
+  - name: Start the chrony service
+    service:
+     name: chrony
+     state: started
+     enabled: yes
+    tags: chrony
