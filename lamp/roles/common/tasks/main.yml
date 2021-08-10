@@ -1,5 +1,5 @@
 ---
-- nclude_tasks: deploy_in_centos.yml
+- include_tasks: deploy_in_centos.yml
   when: ansible_distribution=='CentOS'
 
  
