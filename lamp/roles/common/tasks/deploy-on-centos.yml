@@ -1,5 +1,5 @@
 ---
-# This playbook contains common plays that will be run on all nodes.
+# This playbook contains common plays that will be run on all Ubuntu distributions
 
 - hosts: dbservers
   become: yes

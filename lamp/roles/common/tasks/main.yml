@@ -1,8 +1,9 @@
 ---
-- include_tasks: deploy_in_centos.yml
-  when: ansible_distribution=='CentOS'
+  - name: Deploy on dbservers
+    import_playbook: deploy-on-centos.yml
+    
 
- 
--  include_tasks: deploy_in_ubuntu.yml
-   when: ansible_distribution=='Ubuntu'
+  - name: Deploy on webservers
+    import_playbook: deploy-on-ubuntu.yml
+    
     

@@ -1,29 +1,26 @@
 ---
 # This playbook deploys the whole application stack in this site.
 
-# Play 1: Aplicar configuraciones comunes a todos los hosts
-- name: Apply common configuration to all nodes
+# 1 Aplicar la configuracion en el rolo common a ambas distribuciones
+- name: apply common configuration to all nodes
   hosts: all
   remote_user: ansible
-  become: yes
-  become_method: sudo
+
   roles:
     - common
 
-# Play 2: Configura y despliega solamente en hosts webservers
+# 2 Aplicar configuracion web a distribuciones Ubuntu
 - name: configure and deploy the webservers and application code
   hosts: webservers
   remote_user: ansible
-  become: yes
-  become_method: sudo
+
   roles:
     - web
 
-# Play 3: Despliega MySQL y configura las bases solamente en hosts dbservers
-- name: Deploy MySQL and configure the databases
+# 3 Aplicar configuracion de base de datos a distribuciones CentOS
+- name: deploy MySQL and configure the databases
   hosts: dbservers
   remote_user: ansible
-  become: yes
-  become_method: sudo
+
   roles:
     - db

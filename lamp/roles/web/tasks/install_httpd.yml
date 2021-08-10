@@ -2,11 +2,13 @@
 # These tasks install http and the php modules.
 
 - hosts: webservers
-- name: Install httpd and other tools
-  apt: 
+  become: yes
+  tasks:
+  - name: Install httpd and other tools
+    apt: 
       name: '{{ item }}'
       state: present
-  loop:
+    loop:
         - apache2
         - php-mysql
         - git
@@ -14,23 +16,29 @@
         - libapache2-mod-security2
         - libapache2-mod-php
         
-
-- name: Allow all access to tcp port 80
-  community.general.ufw:
+  - name: Allow all access to tcp port 80
+    community.general.ufw:
       rule: allow
       port: '80'
       proto: tcp
 
-- name: Apache2 start
-  ansible.builtin.systemd:
+  - name: Apache2 start
+    ansible.builtin.systemd:
       name: apache2
       state: started
       enabled: yes
 
-- name: Make sure apache2 is running
-  ansible.builtin.systemd:
+  - name: Make sure apache2 is running
+    ansible.builtin.systemd:
       state: started
       name: apache2
+    notify: restart apache
+
+  handlers:
+          - name: restart apache
+            service: 
+                name: Time Zone
+                state: restarted      
 
  
 
