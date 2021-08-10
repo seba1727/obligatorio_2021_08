@@ -11,15 +11,15 @@ become_method = sudo
 
 1.Creacion de una carptea llamada "hosts". Dentro de ella se creo una archivo llamado ".ini" con la configuracion de los host.
 
-En donde "dbservers" son "hosts" que distribuciones SO CentOS y donde "webservers" son hosts que distribuciones SO. 
-Ubuntu:
+En donde "dbservers" son "hosts" que distribuciones SO CentOS y donde "webservers" son hosts que distribuciones SO Ubuntu:
+
 [dbservers]
 192.168.0.110
 
 [webservers]
 192.168.0.111
 
-Roles - common
+## Roles - common
 
  El rol "common" se crearon dos playbooks llamados "deploy-on-centos" y "deploy-on-ubuntu" para dezplegar las configuraciones a las dos distribuciones ya configuradas.
 
@@ -64,7 +64,7 @@ En el archivo "main.yml" se configuro para que ambas distribuciones se despliegu
   - name: Deploy on webservers
     import_playbook: deploy-on-ubuntu.yml
 
- Roles - DB
+## Roles - DB
 El archivo "main.yml" se cambio de nombre a "install_db.yml" y en su totalidad fue modificado para que quede mas prolijo. Las tareas que se modificaron fueron las mismas solo que quedaron en un orden distinto y a continuacion se nombraran las tareas que si fueron agregadas.
 
 La carpeta "templates" y le archivo de variables "dbservers" paso a estar dentro de la carpeta "tasks"
@@ -94,7 +94,7 @@ handlers:
   - name: restart mariadb
     service: name=mariadb state=restarted 
 
- ·Roles - WEB
+## Roles - WEB
 
 EN el rol web para la instalacion de apache se configuro desde cero para adaptarlo para la distribucion "Ubuntu". Ademas de la tarea de installar httpd, tambien se agregaron dependencias.
 
