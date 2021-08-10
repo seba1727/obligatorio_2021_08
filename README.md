@@ -4,13 +4,14 @@
 
 1.Creacion de un archivo "ansible.cfg" con las siguientes directivas
 
--[defaults]
+[defaults]
+
 inventory = hosts/inventario.ini
 deprecation_warnings = False
 remote_user = ansible
 become_method = sudo
 
-1.Creacion de una carptea llamada "hosts". Dentro de ella se creo una archivo llamado ".ini" con la configuracion de los host.
+2.Creacion de una carptea llamada "hosts". Dentro de ella se creo una archivo llamado ".ini" con la configuracion de los host.
 
 En donde "dbservers" son "hosts" que distribuciones SO CentOS y donde "webservers" son hosts que distribuciones SO Ubuntu:
 
