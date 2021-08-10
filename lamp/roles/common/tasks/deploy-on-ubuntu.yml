@@ -1,4 +1,5 @@
 ---
+# This playbook contains common plays that will be run on all Ubuntu distributions
 
 - hosts: webservers
   become: yes
@@ -12,22 +13,33 @@
         - ufw
         - git
   
-  - name: Update repositories cache
-    apt: update_cache=yes
-  
   - name: Install build-essential
-    apt: name=build-essential state=present
-
+    apt:
+      name: build-essential 
+      state: present
+      
   - name: Configure chrony file
     template:
       src: chrony.conf.j2
       dest: /etc/chrony.conf
     tags: chrony
-    notify: restart chrony
-
+    notify: restart 
+    
   - name: Start the chrony service
     service:
      name: chrony
      state: started
      enabled: yes
     tags: chrony
+    
+  - name: Configure Time Zone
+    community.general.timezone:
+     name: America/Montevideo
+    notify: 
+         - restart 
+  handlers:
+          - name: restart 
+            service: 
+                name: Time Zone
+                state: restarted
+                  
